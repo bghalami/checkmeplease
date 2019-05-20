@@ -41,6 +41,8 @@ group :development, :test do
   gem 'pry'
   gem 'active_designer'
   gem 'simplecov', require: false
+  #to deal with readline errors
+  gem 'rb-readline'
 end
 
 group :development do
