@@ -4,7 +4,7 @@ class StateId < ApplicationRecord
 
   def self.delete_me(state_id)
     if state_id.destroy
-      "StateId for User #{user_id} successfully deleted"
+      "{\"message\": \"StateId for User #{user_id} successfully deleted\"}"
     else
       error_message
     end
@@ -20,7 +20,7 @@ class StateId < ApplicationRecord
         error_message
       end
     else
-      "User #{user_id} already has a State ID"
+      "{\"message\": \"User #{user_id} already has a State ID\"}"
     end
   end
 

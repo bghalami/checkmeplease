@@ -22,7 +22,7 @@ class MedicalRecommendation < ApplicationRecord
         user.medical_recommendation
       end
     else
-      "User #{user_id} already has a Medical Recommendation"
+      "{\"message\": \"User #{user_id} already has a Medical Recommendation\"}"
     end
   end
 
