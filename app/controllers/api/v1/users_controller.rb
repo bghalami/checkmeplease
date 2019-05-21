@@ -5,11 +5,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    if user
-      render json: user
-    else
-      render json: "No User found with ID #{params[:id]}"
-    end
+    render json: User.show_me(user)
   end
 
   def update
@@ -18,20 +14,11 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    new_user = User.create(user_params)
-    if new_user.save
-      render json: new_user
-    else
-      render error_message
-    end
+    render json: User.create_me(user_params)
   end
 
   def destroy
-    if user.destroy
-      render json: "User #{params[:id]} and related data successfully deleted"
-    else
-      render error_message
-    end
+    render json: User.delete_me(user)
   end
 
   private
