@@ -1,7 +1,11 @@
 class Api::V1::StateIdsController < ApplicationController
 
   def show
-    render json: state_id
+    if state_id
+      render json: state_id
+    else
+      render json: "{\"message\": \"User #{user_id} has no State ID\"}"
+    end
   end
 
   def update

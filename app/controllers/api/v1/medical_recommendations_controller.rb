@@ -1,7 +1,11 @@
 class Api::V1::MedicalRecommendationsController < ApplicationController
 
   def show
-    render json: medical_recommendation
+    if medical_recommendation
+      render json: medical_recommendation
+    else
+      render json: "{\"message\": \"User #{user_id} has no Medical Recommendation\"}"
+    end
   end
 
   def update
@@ -15,19 +19,19 @@ class Api::V1::MedicalRecommendationsController < ApplicationController
       user.medical_recommendation = MedicalRecommendation.create(medical_recommendation_params)
       if user.medical_recommendation.save
         render json: user.medical_recommendation
-      else
-        error_message
       end
     else
-      render "User #{user_id} already has a Medical Recommendation"
+      render json: "User #{user_id} already has a Medical Recommendation"
     end
+  rescue
+      render json: error
   end
 
   def destroy
     if medical_recommendation.destroy
-      render json: "Medical Recommendation for User #{user_id} successfully deleted"
+      render json: "{\"message\": \"Medical Recommendation for User #{user_id} successfully deleted\"}"
     else
-      render error_message
+      render json: error_message
     end
   end
 
@@ -37,7 +41,7 @@ class Api::V1::MedicalRecommendationsController < ApplicationController
   end
 
   def medical_recommendation
-    MedicalRecommendation.find_by(user_id: user_params[:user_id])
+    MedicalRecommendation.find_by(user_id: user_id)
   end
 
   def medical_recommendation_params
