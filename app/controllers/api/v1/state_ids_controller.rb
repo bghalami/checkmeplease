@@ -1,11 +1,7 @@
 class Api::V1::StateIdsController < ApplicationController
 
   def show
-    if state_id
-      render json: state_id
-    else
-      render json: "{\"message\": \"User #{user_id} has no State ID\"}"
-    end
+    render json: StateId.show_me(state_id, user_id)
   end
 
   def update
@@ -14,25 +10,11 @@ class Api::V1::StateIdsController < ApplicationController
   end
 
   def create
-    user = User.find_by_id(user_id)
-    if user.state_id == nil
-      user.state_id = StateId.create(state_id_params)
-      if user.state_id.save
-        render json: user.state_id
-      else
-        error_message
-      end
-    else
-      render "User #{user_id} already has a State ID"
-    end
+    render json: StateId.create_me(state_id, user_id, state_id_params)
   end
 
   def destroy
-    if state_id.destroy
-      render json: "StateId for User #{user_id} successfully deleted"
-    else
-      render error_message
-    end
+    render json: StateId.delete_me(state_id, user_id)
   end
 
   private
