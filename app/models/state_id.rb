@@ -2,7 +2,7 @@ class StateId < ApplicationRecord
   validates_presence_of :id_number, :state, :expiration_date, :path_to_image
   belongs_to :user
 
-  def self.delete_me(state_id)
+  def self.delete_me(state_id, user_id)
     if state_id.destroy
       "{\"message\": \"StateId for User #{user_id} successfully deleted\"}"
     else
@@ -21,14 +21,6 @@ class StateId < ApplicationRecord
       end
     else
       "{\"message\": \"User #{user_id} already has a State ID\"}"
-    end
-  end
-
-  def self.show_me(state_id, user_id)
-    if state_id
-      state_id
-    else
-      "{\"message\": \"User #{user_id} has no State ID\"}"
     end
   end
 end

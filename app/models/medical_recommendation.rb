@@ -25,12 +25,4 @@ class MedicalRecommendation < ApplicationRecord
       "{\"message\": \"User #{user_id} already has a Medical Recommendation\"}"
     end
   end
-
-  def self.show_me(medical_recommendation)
-    if medical_recommendation
-      medical_recommendation
-    else
-      "{\"message\": \"User #{user_id} has no Medical Recommendation\"}"
-    end
-  end
 end

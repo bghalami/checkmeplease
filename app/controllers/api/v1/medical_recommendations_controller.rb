@@ -1,7 +1,7 @@
 class Api::V1::MedicalRecommendationsController < ApplicationController
 
   def show
-    render json: MedicalRecommendation.show_me(medical_recommendation)
+    render json: medical_recommendation
   end
 
   def update

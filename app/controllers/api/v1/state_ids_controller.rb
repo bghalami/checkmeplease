@@ -1,7 +1,7 @@
 class Api::V1::StateIdsController < ApplicationController
 
   def show
-    render json: StateId.show_me(state_id, user_id)
+    render json: state_id
   end
 
   def update

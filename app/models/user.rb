@@ -3,14 +3,6 @@ class User < ApplicationRecord
   has_one :medical_recommendation,  dependent: :destroy
   validates_presence_of :name, :email_address, :date_of_birth
 
-  def self.show_me(user)
-    if user
-      user
-    else
-      "{\"message\":\"{No User found with ID #{params[:id]}}\"}"
-    end
-  end
-
   def self.create_me(user_params)
     new_user = User.create(user_params)
     if new_user.save

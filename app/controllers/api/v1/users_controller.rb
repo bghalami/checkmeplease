@@ -1,7 +1,6 @@
 class Api::V1::UsersController < ApplicationController
-
   def index
-    render json: User.all
+    render json: user
   end
 
   def show
