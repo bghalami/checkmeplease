@@ -5,7 +5,11 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    render json: user
+    if user
+      render json: user
+    else
+      render json: "No User found with ID #{params[:id]}"
+    end
   end
 
   def update
@@ -18,27 +22,28 @@ class Api::V1::UsersController < ApplicationController
     if new_user.save
       render json: new_user
     else
-      render error_message("please try again.")
+      render error_message
     end
   end
 
-  def delete
+  def destroy
+    if user.destroy
+      render json: "User #{params[:id]} and related data successfully deleted"
+    else
+      render error_message
+    end
   end
 
   private
-  def user_params
-    params.permit(:id)
-  end
-
   def user
     User.find_by_id(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :date_of_birth)
+    params.require(:user).permit(:name, :email_address, :date_of_birth)
   end
 
-  def error_message(error)
-    "Something went wrong, #{error}"
+  def error_message
+    "Something went wrong, please try again."
   end
 end
