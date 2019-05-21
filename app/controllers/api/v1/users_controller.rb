@@ -42,8 +42,4 @@ class Api::V1::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email_address, :date_of_birth)
   end
-
-  def error_message
-    "Something went wrong, please try again."
-  end
 end
