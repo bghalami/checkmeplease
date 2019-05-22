@@ -5,25 +5,39 @@ class Api::V1::MedicalRecommendationsController < ApplicationController
   end
 
   def update
-    render json: MedicalRecommendation.update_me(medical_recommendation, medical_recommendation_params)
+    medical_recommendation.update!(medical_recommendation_params)
+    render json: medical_recommendation
   end
 
   def create
-    render json: MedicalRecommendation.create_me(medical_recommendation, user_id, medical_recommendation_params)
+    if !medical_recommendation
+      user.medical_recommendation = MedicalRecommendation.new(medical_recommendation_params)
+      if user.medical_recommendation.save
+        render json: medical_recommendation
+      else
+        render json: "{\"message\": \"Something went wrong, please try again.\"}"
+      end
+    else
+      render json:"{\"message\": \"User #{user.id} already has a Medical Recommendation\"}"
+    end
   end
 
   def destroy
-    render json: MedicalRecommendation.delete_me(medical_recommendation, user_id)
+    if medical_recommendation.destroy
+      render json: "{\"message\": \"Medical Recommendation for User #{user.id} successfully deleted\"}"
+    else
+      render json: "{\"message\": \"Something went wrong, please try again.\"}"
+    end
   end
 
   private
 
   def user_id
-    params.permit(:user_id)[:user_id]
+    User.find_by_id(params[:user_id])
   end
 
   def medical_recommendation
-    MedicalRecommendation.find_by(user_id: user_id)
+    user.medical_recommendation
   end
 
   def medical_recommendation_params

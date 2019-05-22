@@ -10,7 +10,7 @@ class Api::V1::StateIdsController < ApplicationController
   end
 
   def create
-    if state_id == nil
+    if !state_id
       user.state_id = StateId.new(state_id_params)
       if user.state_id.save
         render json: state_id
