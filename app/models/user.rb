@@ -8,7 +8,7 @@ class User < ApplicationRecord
     if new_user.save
       new_user
     else
-      error_message
+      "{\"message\": \"Something went wrong, please try again.\"}"
     end
   end
 
@@ -16,7 +16,7 @@ class User < ApplicationRecord
     if user.destroy
       "{\"message\":\"User #{params[:id]} and related data successfully deleted\"}"
     else
-      error_message
+      "{\"message\": \"Something went wrong, please try again.\"}"
     end
   end
 end

@@ -6,7 +6,7 @@ class StateId < ApplicationRecord
     if state_id.destroy
       "{\"message\": \"StateId for User #{user_id} successfully deleted\"}"
     else
-      error_message
+      "{\"message\": \"Something went wrong, please try again.\"}"
     end
   end
 
@@ -17,7 +17,7 @@ class StateId < ApplicationRecord
       if user.state_id.save
         user.state_id
       else
-        error_message
+        "{\"message\": \"Something went wrong, please try again.\"}"
       end
     else
       "{\"message\": \"User #{user_id} already has a State ID\"}"

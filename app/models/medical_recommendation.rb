@@ -10,7 +10,7 @@ class MedicalRecommendation < ApplicationRecord
     if medical_recommendation.destroy
       "{\"message\": \"Medical Recommendation for User #{user_id} successfully deleted\"}"
     else
-      error_message
+      "{\"message\": \"Something went wrong, please try again.\"}"
     end
   end
 
@@ -20,6 +20,8 @@ class MedicalRecommendation < ApplicationRecord
       user.medical_recommendation = MedicalRecommendation.create(medical_recommendation_params)
       if user.medical_recommendation.save
         user.medical_recommendation
+      else
+        "{\"message\": \"Something went wrong, please try again.\"}"
       end
     else
       "{\"message\": \"User #{user_id} already has a Medical Recommendation\"}"
