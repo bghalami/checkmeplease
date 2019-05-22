@@ -1,0 +1,167 @@
+<h1>Welcome to Med Card API!</h1>
+<h2>Below you'll find the endpoints for operating this API</h4>
+
+<h4>Root</h4>
+<ul>
+  <li>GET '/'</li>
+    <ul>
+  	   <li>Instructions for using the endpoints</li>
+    </ul>
+  </li>
+</ul>
+<h4>Users</h4>
+<ul>
+  <li>GET '/api/v1/users'</li>
+    <ul>
+  	   <li> See all Users</li>
+    </ul>
+  <li> POST '/api/v1/users'</li>
+    <ul>
+  	   <li> Create a new User</li>
+  	    <li> Takes the following as JSON in the BODY</li>
+  	     <li> NONE of the fields can be empty</li>
+  	      <li> { </br>
+  	         &nbsp;&nbsp; "name": {VARCHAR}, </br>
+  	         &nbsp;&nbsp; "email_address": {VARCHAR}, </br>
+  	         &nbsp;&nbsp; "date_of_birth": {YYYY-MM-DD} </br>
+  	         } </br>
+          </li>
+      <li>MUST include HTTP header: `Content-Type` with value `application/json`</li>
+      </ul>
+  <li>GET '/api/v1/users/:id'</li>
+    <ul>
+  	   <li>Show a single User with State ID and Medical Recommendation
+  	   <li>EXAMPLE:
+  	   <li> { </br>
+  	    &nbsp;&nbsp; id: 1,</br>
+  	    &nbsp;&nbsp; name: "Ben",</br>
+  	    &nbsp;&nbsp; email_address: "ben@ben.com",</br>
+  	    &nbsp;&nbsp; date_of_birth: "1992-08-05",</br>
+  	    &nbsp;&nbsp; state_id: {</br>
+  		  &nbsp;&nbsp;&nbsp;&nbsp; id_number: 4,</br>
+  	    &nbsp;&nbsp;&nbsp;&nbsp; state: "Kansas",</br>
+  	    &nbsp;&nbsp;&nbsp;&nbsp; expiration_date: "1995-08-05(EXPIRED)",</br>
+  	    &nbsp;&nbsp;&nbsp;&nbsp; path_to_image: "/file/file/file/file.jpg"</br>
+  	    &nbsp;&nbsp;},</br>
+  	    &nbsp;&nbsp; medical_recommendation: {</br>
+  		  &nbsp;&nbsp;&nbsp;&nbsp; recommendation_number:  4,</br>
+  	    &nbsp;&nbsp;&nbsp;&nbsp; issuer: "A Doctor",</br>
+  		  &nbsp;&nbsp;&nbsp;&nbsp; state: "Kansas",</br>
+  	    &nbsp;&nbsp;&nbsp;&nbsp; expiration_date: "1995-08-05(EXPIRED)",</br>
+  		  &nbsp;&nbsp;&nbsp;&nbsp; path_to_image: "/file/file/file/file.jpg"</br>
+        &nbsp;&nbsp; }</br>
+  	}</li>
+    </ul>
+  <li>PUT '/api/v1/users:id'</li>
+    <ul>
+  	  <li>Update an existing User</li>
+  	  <li>Takes any combination of the following JSON</li>
+  	  <li> {</br>
+  	  &nbsp;&nbsp; "name": {VARCHAR},</br>
+  	  &nbsp;&nbsp; "email_address": {VARCHAR},</br>
+  	  &nbsp;&nbsp; "date_of_birth": {YYYY-MM-DD}</br>
+  	  }
+      </li>
+  	  <li>MUST include HTTP header: `Content-Type` with value `application/json`</li>
+    </ul>
+  <li>DELETE '/api/v1/users:id'</li>
+    <ul>
+  	  <li>Permanantly deletes a User and associated State ID and Medical Recommendation from the database</li>
+    </ul>
+</ul>
+
+<h4>State ID</h4>
+<ul>
+<li>GET '/api/v1/users/:user_id/state_id'</li>
+  <ul>
+	  <li>View a Users State ID info</li>
+	  <li>EXAMPLE:</li>
+	  <li>{</br>
+		&nbsp;&nbsp; id_number: 4,</br>
+	  &nbsp;&nbsp; state: "Kansas",</br>
+	  &nbsp;&nbsp; expiration_date: "1995-08-05(EXPIRED)",</br>
+	  &nbsp;&nbsp; path_to_image: "/file/file/file/file.jpg"</br>
+	  }
+    </li>
+  </ul>
+<li>POST '/api/v1/users/:user_id/state_id'</li>
+  <ul>
+	  <li>Create a State ID for a User</li>
+	  <li>Takes the following as JSON in the BODY</li>
+	  <li>NONE of the fields can be empty</li>
+	  <li>{</br>
+	  &nbsp;&nbsp; "id_number": {INTEGER},</br>
+	  &nbsp;&nbsp; "state": {VARCHAR},</br>
+	  &nbsp;&nbsp; "expiration_date": {YYYY-MM-DD},</br>
+	  &nbsp;&nbsp; "path_to_image": {VARCHAR}</br>
+	  }
+    </li>
+    <li> MUST include HTTP header: `Content-Type` with value `application/json`</li>
+  </ul>
+<li>PUT '/api/v1/users/:user_id/state_id'</li>
+  <ul>
+	  <li>Edit an existing User State ID</li>
+	  <li>Takes any combination of the following JSON</li>
+	  <li>{</br>
+	  &nbsp;&nbsp; "id_number": {INTEGER},</br>
+	  &nbsp;&nbsp; "state": {VARCHAR},</br>
+	  &nbsp;&nbsp; "expiration_date": {YYYY-MM-DD},</br>
+	  &nbsp;&nbsp; "path_to_image": {VARCHAR}</br>
+	  }
+    </li>
+	  <li>MUST include HTTP header: `Content-Type` with value `application/json`</li>
+  </ul>
+<li>DELETE '/api/v1/users/:user_id/state_id'</li>
+  <ul>
+	  <li>Permanently deletes a Users State ID</li>
+  </ul>
+</ul>
+<h4>Medical Recommendation</h4>
+<ul>
+<li>GET '/api/v1/users/:user_id/medical_recommendation'</li>
+  <ul>
+	  <li>View a Users Medical Recommendation</li>
+	  <li>EXAMPLE:
+	    {</br>
+		  &nbsp;&nbsp; ecommendation_number: 4,</br>
+		  &nbsp;&nbsp; issuer: "A Doctor",</br>
+		  &nbsp;&nbsp; state: "Kansas",</br>
+		  &nbsp;&nbsp; expiration_date: "1995-08-05(EXPIRED)",</br>
+		  &nbsp;&nbsp; path_to_image: "/file/file/file/file.jpg"</br>
+	    }
+    </li>
+  </ul>
+<li>POST '/api/v1/users/:user_id/medical_recommendation'</li>
+  <ul>
+	  <li>Create a Medical Recommendation for a User</li>
+	  <li>Takes the following as JSON in the BODY</li>
+	  <li>NONE of the fields can be empty</li>
+	  <li>{</br>
+		&nbsp;&nbsp; recommendation_number: {INTEGER},</br>
+		&nbsp;&nbsp; issuer: {VARCHAR},</br>
+		&nbsp;&nbsp; state: {VARCHAR},</br>
+		&nbsp;&nbsp; expiration_date: {YYYY-MM-DD},</br>
+		&nbsp;&nbsp; path_to_image: {VARCHAR}</br>
+	  }
+    </li>
+    <li>MUST include HTTP header: `Content-Type` with value `application/json`</li>
+  </ul>
+<li>PUT '/api/v1/users/:user_id/medical_recommendation'</li>
+  <ul>
+	  <li>Edit an existing User Medical Recommendation</li>
+	  <li>Takes any combination of the following JSON</li>
+	  <li>{</br>
+		&nbsp;&nbsp; recommendation_number: {INTEGER},</br>
+		&nbsp;&nbsp; issuer: {VARCHAR},</br>
+		&nbsp;&nbsp; state: {VARCHAR},</br>
+		&nbsp;&nbsp; expiration_date: {YYYY-MM-DD},</br>
+		&nbsp;&nbsp; path_to_image: {VARCHAR}</br>
+	  }
+    </li>
+	  <li>MUST include HTTP header: `Content-Type` with value `application/json`</li>
+  </ul>
+<li>DELETE '/api/v1/users/:user_id/medical_recommendation'</li>
+  <ul>
+	  <li>Permanently deletes a Users Medical Recommendation from the DataBase</li>
+  </ul>
+</ul>
