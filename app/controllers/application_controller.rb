@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :valid_user, only: [:show, :update, :destroy]
-  require 'pry'
+
   private
 
   def valid_user
