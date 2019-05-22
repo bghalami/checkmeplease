@@ -142,10 +142,10 @@ DELETE '/api/v1/users/:user_id/medical_recommendation'
   git clone git@github.com:GhostGroup/api-test-beng.git
   ```
 2. Navigate into the new directory.
-3.  Checkout the Dev branch
+3.  Merge my Dev branch
 
 ```shell
-  git co branch dev
+  git pull origin dev
   ```
 4. Install the dependencies:
   ```shell
@@ -156,6 +156,17 @@ DELETE '/api/v1/users/:user_id/medical_recommendation'
   rake db:create db:migrate db:seed
   ```
 
+## Running the Test Suite
+
+1. After `Initial Setup` run
+```shell
+rspec
+```
+
+2. To see test coverage run
+```shell
+open coverage/index.html
+```
 
 ## Running the Server Locally
 
