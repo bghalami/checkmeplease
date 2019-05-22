@@ -6,6 +6,9 @@ This is an API with the ability to Create, View, Delete, and Edit Users, as well
 
 See the app in action at [HERE!](https://med-card-api-beng.herokuapp.com/)
 
+## Schema
+![](/app/assets/images/schema_design.jpg)
+
 ## Endpoints
 
 ```
