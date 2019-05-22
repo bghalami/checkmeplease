@@ -12,11 +12,11 @@ class User < ApplicationRecord
     end
   end
 
-  def self.destroy_me(user)
-    if user.destroy
-      "{\"message\":\"User #{params[:id]} and related data successfully deleted\"}"
-    else
-      "{\"message\": \"Something went wrong, please try again.\"}"
-    end
+  def self.destroy_me(user,params)
+    "{\"message\":\"User #{params[:id]} and related data successfully deleted\"}" if user.destroy
+  end
+
+  def self.update_me(user, user_params)
+    user if user.update!(user_params)
   end
 end

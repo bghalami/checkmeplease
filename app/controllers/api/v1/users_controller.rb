@@ -8,8 +8,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    user.update!(user_params)
-    render json: user
+    render json: User.update_me(user, user_params)
   end
 
   def create
@@ -17,7 +16,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    render json: User.delete_me(user)
+    render json: User.destroy_me(user, params)
   end
 
   private

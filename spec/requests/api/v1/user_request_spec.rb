@@ -83,6 +83,16 @@ describe "user visits user endpoints" do
     end
   end
   describe "user deletes user" do
+    describe "user successfully deletes user" do
+      it "Should return user deleted message" do
+        user = create(:user)
+        expect(user).to_not eq(nil)
+        delete "/api/v1/users/#{user.id}"
 
+        user = User.find_by_id(user.id)
+
+        expect(user).to eq(nil)
+      end
+    end
   end
 end
