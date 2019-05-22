@@ -5,8 +5,7 @@ class Api::V1::MedicalRecommendationsController < ApplicationController
   end
 
   def update
-    medical_recommendation.update!(medical_recommendation_params)
-    render json: medical_recommendation
+    render json: MedicalRecommendation.update_me(medical_recommendation, medical_recommendation_params)
   end
 
   def create

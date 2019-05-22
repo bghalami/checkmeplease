@@ -6,6 +6,11 @@ class StateId < ApplicationRecord
     "{\"message\": \"StateId for User #{user_id} successfully deleted\"}" if state_id.destroy
   end
 
+  def self.update_me(state_id, state_id_params)
+    state_id.update!(state_id_params)
+    state_id
+  end
+
   def self.create_me(state_id, user_id, state_id_params)
     user = User.find_by_id(user_id)
     if user.state_id == nil

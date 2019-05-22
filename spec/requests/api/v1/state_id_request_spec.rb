@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 describe "user visits state id endpoints" do
   describe "user views users state id" do
@@ -76,6 +75,26 @@ describe "user visits state id endpoints" do
 
         expect(body).to eq({"message" => "User 1 already has a State ID"})
       end
+    end
+  end
+  describe "user updates state_id" do
+    it "should return updated state_id" do
+      user = create(:user)
+      user.state_id = create(:state_id)
+      expect(user.state_id.state).to eq("California")
+      put_params = { "state_id" => {
+        "state" => "New York" }
+      }
+      put "/api/v1/users/#{user.id}/state_id", :params => put_params
+
+      body = JSON.parse(response.body)
+      assertion = {
+        "id_number" => 40,
+        "state" => "New York",
+        "expiration_date" => "2000-08-11(EXPIRED)",
+        "path_to_image" => "/file/file/file.jpg"
+      }
+      expect(body).to eq(assertion)
     end
   end
 end

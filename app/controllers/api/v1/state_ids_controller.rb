@@ -5,8 +5,7 @@ class Api::V1::StateIdsController < ApplicationController
   end
 
   def update
-    state_id.update!(state_id_params)
-    render json: state_id
+    render json: StateId.update_me(state_id, state_id_params)
   end
 
   def create

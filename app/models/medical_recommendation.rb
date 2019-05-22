@@ -27,4 +27,9 @@ class MedicalRecommendation < ApplicationRecord
       "{\"message\": \"User #{user_id} already has a Medical Recommendation\"}"
     end
   end
+
+  def self.update_me(medical_recommendation, medical_recommendation_params)
+    medical_recommendation.update!(medical_recommendation_params)
+    medical_recommendation
+  end
 end
