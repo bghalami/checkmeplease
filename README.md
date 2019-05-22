@@ -1,38 +1,199 @@
-# Card
-As a user I would like to be able use my medical recommendation and id for multiple orders. I would also like to be able to replace or delete my id and medical recommendation.
+# Med Card REST API
 
-# Discussion
-Create a service for a dispensary, that stores users, medical recommendations and IDs.
+#### Created By Ben Ghalami
 
-The Users service should allow a user to upload a State ID and medical recommendation metadata. The user should be able to update or delete the ID or Recommendation.
+This is an API with the ability to Create, View, Delete, and Edit Users, as well as Create, View, Delete, and Edit those Users Med Cards and State IDs
 
-Store users' name, email address and date of birth.
+See the app in action at [HERE!](https://med-card-api-beng.herokuapp.com/)
 
-Store the medical recommendation number, issuer, state, expiration date and path to the image.
+## Endpoints
 
-Store the State ID number, state, expiration date and path to the image.
+```
+GET '/api/v1/users'  
+	- See all Users
+POST '/api/v1/users'  
+	- Create a new User
+	- Takes the following as JSON in the BODY
+	- NONE of the fields can be empty
+	- {    
+	    "name": {VARCHAR},  
+	    "email_address": {VARCHAR},
+	    "date_of_birth": {YYYY-MM-DD}
+	  }
+    - MUST include HTTP header:
+      `Content-Type` with value `application/json`
+GET '/api/v1/users/:id'  
+	- Show a single User with State ID and Medical Recommendation
+	- EXAMPLE:
+	  {
+	    id: 1,
+	    name: "Ben",
+	    email_address: "ben@ben.com",
+	    date_of_birth: "1992-08-05",
+	    state_id: {
+		  id_number: 4,
+	      state: "Kansas",
+	      expiration_date: "1995-08-05(EXPIRED)",
+	      path_to_image: "/file/file/file/file.jpg"
+	    },
+	    medical_recommendation: {
+		  recommendation_number:  4,
+	      issuer: "A Doctor",
+		  state: "Kansas",
+	      expiration_date: "1995-08-05(EXPIRED)",
+		  path_to_image: "/file/file/file/file.jpg"
+       }
+	}
+PUT '/api/v1/users:id'  
+	- Update an existing User
+	- Takes any combination of the following JSON
+	- {    
+	  "name": {VARCHAR},  
+	  "email_address": {VARCHAR},
+	  "date_of_birth": {YYYY-MM-DD}
+	  }
+	- MUST include HTTP header:
+      `Content-Type` with value `application/json`
+DELETE '/api/v1/users:id'
+	- Permanantly deletes a User and associated State ID and
+	  Medical Recommendation from the database
 
-If the id or recommendation is expired, make sure the data returned indicates that clearly.
 
-# Notes 
-Use your normal development practices and git workflow, as if this were a production app.
-Please push any intermediate commits when you complete them.
+GET '/api/v1/users/:user_id/state_id'
+	- View a Users State ID info
+	- EXAMPLE:
+	  {
+		id_number: 4,
+	    state: "Kansas",
+	    expiration_date: "1995-08-05(EXPIRED)",
+	    path_to_image: "/file/file/file/file.jpg"
+	  }
+POST '/api/v1/users/:user_id/state_id'
+	- Create a State ID for a User
+	- Takes the following as JSON in the BODY
+	- NONE of the fields can be empty
+	- {    
+	  "id_number": {INTEGER},
+	  "state": {VARCHAR},
+	  "expiration_date": {YYYY-MM-DD},
+	  "path_to_image": {VARCHAR}
+	  }
+    - MUST include HTTP header:
+      `Content-Type` with value `application/json`
+PUT '/api/v1/users/:user_id/state_id'  
+	- Edit an existing User State ID
+	- Takes any combination of the following JSON
+	- {    
+	  "id_number": {INTEGER},
+	  "state": {VARCHAR},
+	  "expiration_date": {YYYY-MM-DD},
+	  "path_to_image": {VARCHAR}
+	  }
+	- MUST include HTTP header:
+      `Content-Type` with value `application/json`
+DELETE '/api/v1/users/:user_id/state_id'
+	- Permanently deletes a Users State ID
 
-In the initial commit message, include an estimate of how long you think it will take to complete the exercise (not including the bonus tasks).
-For example: `Initial commit - estimating x hours`
 
-In the final commit message, include how long it took to complete the exercise.
-For example: `Make sure foo works properly - completed in y hours`
+GET '/api/v1/users/:user_id/medical_recommendation'
+	- View a Users Medical Recommendation
+	- EXAMPLE:
+	    {
+		  recommendation_number: 4,
+		  issuer: "A Doctor",
+		  state: "Kansas",
+		  expiration_date: "1995-08-05(EXPIRED)",
+		  path_to_image: "/file/file/file/file.jpg"
+	    }
+POST '/api/v1/users/:user_id/medical_recommendation'  
+	- Create a Medical Recommendation for a User
+	- Takes the following as JSON in the BODY
+	- NONE of the fields can be empty
+	- {
+		recommendation_number: {INTEGER},
+		issuer: {VARCHAR},
+		state: {VARCHAR},
+		expiration_date: {YYYY-MM-DD},
+		path_to_image: {VARCHAR}
+	  }
+    - MUST include HTTP header:
+      `Content-Type` with value `application/json`
+PUT '/api/v1/users/:user_id/medical_recommendation'  
+	- Edit an existing User Medical Recommendation
+	- Takes any combination of the following JSON
+	- {
+		recommendation_number: {INTEGER},
+		issuer: {VARCHAR},
+		state: {VARCHAR},
+		expiration_date: {YYYY-MM-DD},
+		path_to_image: {VARCHAR}
+	  }
+	- MUST include HTTP header:
+      `Content-Type` with value `application/json`
+DELETE '/api/v1/users/:user_id/medical_recommendation'
+	- Permanently deletes a Users Medical Recommendation
+	  from the DataBase
+```
 
-# Confirmation
-* API endpoint that returns a User, medical recommendation, and id.
-* If the id or recommendation are expired, be sure that is clearly indicated.
-* Ability to delete or update the medical recommendation and id.
-* Create a dev branch and create a pull request to master.
+## Initial Setup
 
-![Sample Rec](image2.gif)
+1. Clone the repository into a directory of your choosing:
+  ```shell
+  git clone git@github.com:GhostGroup/api-test-beng.git
+  ```
+2. Navigate into the new directory.
+3.  Checkout the Dev branch
 
-# Bonus
-* Image uploads
-* Deploy the application
-* Create a frontend
+```shell
+  git co branch dev
+  ```
+4. Install the dependencies:
+  ```shell
+  bundle install
+  ```
+  5. Run the following command to create, migrate, and seed the database
+  ```shell
+  rake db:create db:migrate db:seed
+  ```
+
+
+## Running the Server Locally
+
+To see your code in action locally, you need to fire up a development server. From the root of the project  
+use the command:
+
+```shell
+rails server
+```
+
+Once the server is running, visit in your browser, or with [PostMan](https://www.getpostman.com/):
+
+* `http://localhost:3000/` to run your application.
+
+* The DB should be populated with 3 test Users for you to play around with
+
+* To quit the server simply press Ctrl + C to shut it down.
+
+
+## Built With
+#### Tech
+* [Rails 5.1.7](https://rubyonrails.org/)
+* [Ruby 2.4.1](https://www.ruby-lang.org/en/)
+* [PostgreSQL](https://www.postgresql.org/)
+* And last but CERTAINLY not least, [Stack Overflow](https://stackoverflow.com/)
+#### Gems
+ * [Database Cleaner](https://github.com/DatabaseCleaner/database_cleaner)
+ * [RSpec](https://rspec.info/)
+ * [Capybara](https://github.com/teamcapybara/capybara)
+ * [Launchy](https://github.com/copiousfreetime/launchy)
+ * [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers)
+ * [SimpleCov](https://github.com/colszowka/simplecov)
+ * [Factory Bot](https://github.com/thoughtbot/factory_bot)
+ * [Pry](https://github.com/pry/pry)
+ * [RB Readline](https://github.com/ConnorAtherton/rb-readline)
+
+ #### Organic
+ * [Food](https://en.wikipedia.org/wiki/Food)
+ * [Coffee](https://en.wikipedia.org/wiki/Coffee)
+ * [My Brain](https://en.wikipedia.org/wiki/Human_brain)
+ * [My Hands](https://en.wikipedia.org/wiki/Hand)
