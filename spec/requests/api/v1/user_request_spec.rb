@@ -11,7 +11,6 @@ describe "user visits user endpoints" do
         expect(response).to be_successful
 
         users = JSON.parse(response.body)
-
         expect(users.count).to eq(3)
       end
     end
