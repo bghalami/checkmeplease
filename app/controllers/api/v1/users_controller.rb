@@ -1,10 +1,10 @@
 class Api::V1::UsersController < ApplicationController
   def index
-    render json: user
+    render json: User.all
   end
 
   def show
-    render json: User.show_me(user)
+    render json: user
   end
 
   def update
