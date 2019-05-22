@@ -3,11 +3,7 @@ class StateId < ApplicationRecord
   belongs_to :user
 
   def self.delete_me(state_id, user_id)
-    if state_id.destroy
-      "{\"message\": \"StateId for User #{user_id} successfully deleted\"}"
-    else
-      "{\"message\": \"Something went wrong, please try again.\"}"
-    end
+    "{\"message\": \"StateId for User #{user_id} successfully deleted\"}" if state_id.destroy
   end
 
   def self.create_me(state_id, user_id, state_id_params)

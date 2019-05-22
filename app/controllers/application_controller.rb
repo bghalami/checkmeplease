@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   def user
-    User.find_by_id(params[:id])
+    if params[:id]
+      User.find_by_id(params[:id])
+    else
+      User.find_by_id(params[:user_id])
+    end
   end
 end
