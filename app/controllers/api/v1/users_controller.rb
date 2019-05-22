@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   def index
-    render json: User.all
+    render json: User.all.includes(:state_id, :medical_recommendation)
   end
 
   def show
